@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  streamlit_app:
+    build: .
+    container_name: streamlit_app
+    ports:
+      - "80:8501"  
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=postgresql://pcuser:password1!@db:5432/alerts_db
+    networks:
+      - app_network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: alerts_db
+      POSTGRES_USER: pcuser
+      POSTGRES_PASSWORD: password1!
+
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  db_data:
