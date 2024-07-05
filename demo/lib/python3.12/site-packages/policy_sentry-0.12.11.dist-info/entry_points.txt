@@ -1,0 +1,3 @@
+[console_scripts]
+policy_sentry=policy_sentry.bin.cli:main
+
