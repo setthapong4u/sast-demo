@@ -96,7 +96,7 @@ def login_and_get_token(access_key, secret_key, api_base_url):
     }
 
     try:
-        response = requests.post(url, headers=login_headers, json=login_payload)
+        response = requests.post(url, headers=login_headers, json=login_payload) # timeout
         response.raise_for_status()
         data = response.json()
         if data is None:
